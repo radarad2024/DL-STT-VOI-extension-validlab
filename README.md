@@ -1,3 +1,5 @@
+# DL-STT-VOI-Extension
+
 Code for **"Influence of Volume-of-Interest Extension on Deep Learning Classification of Soft Tissue Tumors on MRI."**
 
 DenseNet-121 models classify soft tissue tumors as non-malignant or malignant on multi-sequence MRI (T1WI, T2WI, and contrast-enhanced T1WI). Three volume-of-interest (VOI) strategies are compared to evaluate the effect of including the peritumoral region.
@@ -29,10 +31,10 @@ code/
 
 The same steps are applied to all three VOI models (`code/preprocessing.py`).
 
-1. Load the three sequences and the VOI mask.
+1. Load the three sequences and the VOI mask of each sequence (the tumor is segmented on each sequence separately).
 2. Resample the whole image volume to 1 × 1 × 2 mm.
 3. Resize the whole image volume to 128 × 128 × 80 voxels.
-4. Apply the VOI mask (voxels outside the VOI are set to 0). The images are not cropped to the VOI.
+4. Apply the VOI mask of each sequence to that sequence (voxels outside the VOI are set to 0). The images are not cropped to the VOI.
 5. Normalize intensities within the VOI: f(x) = (x − μ) / σ × 1000.
 6. Training only: augmentation applied on the fly each time a case is loaded (random flipping, affine transformation, Gaussian noise, bias field, and elastic deformation). No augmentation is used for the validation folds or the external test set.
 
@@ -46,8 +48,8 @@ data/
 │   ├── labels.csv                 # patient_id, label
 │   ├── R-VOI/
 │   │   ├── EN/<patient_id>/       # contrast-enhanced T1WI: image.nii.gz, seg_label.nii.gz (VOI mask)
-│   │   ├── T1/<patient_id>/       # T1WI: image.nii.gz
-│   │   └── T2/<patient_id>/       # T2WI: image.nii.gz
+│   │   ├── T1/<patient_id>/       # T1WI: image.nii.gz, seg_label.nii.gz
+│   │   └── T2/<patient_id>/       # T2WI: image.nii.gz, seg_label.nii.gz
 │   ├── S-VOI/                     # same layout, S-VOI mask
 │   └── E-VOI/                     # same layout, E-VOI mask
 └── external/                      # external test set
@@ -59,7 +61,7 @@ data/
 ```
 
 - `labels.csv`: `label` is 0 for non-malignant (benign or intermediate) and 1 for malignant tumors.
-- The VOI mask file name starts with `seg` and is placed in the `EN` folder of each patient.
+- Each sequence has its own VOI mask; the mask file name starts with `seg` and is placed in the folder of that sequence.
 
 ## Usage
 
