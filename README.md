@@ -1,6 +1,6 @@
-# DL-STT-VOI-Extension
+<img width="468" height="84" alt="image" src="https://github.com/user-attachments/assets/2797af0c-7670-4e80-83f0-e3f07a6088e7" /># DL-STT-VOI-Extension
 
-Code for **"Influence of Volume-of-Interest Extension on Deep Learning-based Classification of Soft Tissue Tumors on MRI."**
+Code for **"Influence of Volume-of-Interest Extension on Deep Learning Classification of Soft Tissue Tumors on MRI."**
 
 DenseNet-121 models classify soft tissue tumors as non-malignant or malignant on multi-sequence MRI (T1WI, T2WI, and contrast-enhanced T1WI). Three volume-of-interest (VOI) strategies are compared to evaluate the effect of including the peritumoral region.
 
